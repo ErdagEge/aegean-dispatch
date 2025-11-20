@@ -28,16 +28,18 @@ const uniqueTags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
 
     <div class="post-list">
       {posts.map((post) => (
-        <a class="card" href={`/posts/${post.slug}/`}>
+        <article class="card">
           <div class="post-meta">
             <span>{post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
             {post.data.tags.map((tag) => (
               <a class="pill pill-link" href={`/tags/${tag.toLowerCase()}/`}>{tag}</a>
             ))}
           </div>
-          <h3 class="post-title">{post.data.title}</h3>
+          <h3 class="post-title">
+            <a class="card-link" href={`/posts/${post.slug}/`}>{post.data.title}</a>
+          </h3>
           {post.data.description && <p class="text-muted" style="margin: 0.25rem 0 0;">{post.data.description}</p>}
-        </a>
+        </article>
       ))}
     </div>
   </section>
