@@ -8,7 +8,7 @@ const posts = (await getCollection('posts')).sort(
 const uniqueTags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
 ---
 
-<BaseLayout title="All Posts · Aegean Dispatch" description="Browse every letter from the Aegean Dispatch.">
+<BaseLayout title="All Posts - Aegean Dispatch" description="Browse every letter from the Aegean Dispatch.">
   <section class="page--narrow" style="margin: 0 auto;">
     <div style="margin-bottom: 1.2rem;">
       <h1 class="heading" style="font-size: clamp(1.8rem, 3vw, 2.2rem); margin-bottom: 0.3rem;">
@@ -20,7 +20,7 @@ const uniqueTags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
       {uniqueTags.length > 0 && (
         <div style="margin-top: 0.7rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
           {uniqueTags.map((tag) => (
-            <span class="pill">{tag}</span>
+            <a class="pill pill-link" href={`/tags/${tag.toLowerCase()}/`}>{tag}</a>
           ))}
         </div>
       )}
@@ -32,7 +32,7 @@ const uniqueTags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
           <div class="post-meta">
             <span>{post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
             {post.data.tags.map((tag) => (
-              <span class="pill">{tag}</span>
+              <a class="pill pill-link" href={`/tags/${tag.toLowerCase()}/`}>{tag}</a>
             ))}
           </div>
           <h3 class="post-title">{post.data.title}</h3>

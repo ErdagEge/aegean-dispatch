@@ -11,7 +11,7 @@ interface Props {
 const { title, description, date, tags = [] } = Astro.props as Props;
 ---
 
-<BaseLayout title={`${title} · Aegean Dispatch`} description={description} pageClass="page--narrow">
+<BaseLayout title={`${title} - Aegean Dispatch`} description={description} pageClass="page--narrow">
   <article>
     <header style="margin-bottom: 1.4rem;">
       <p class="pill">Post</p>
@@ -23,7 +23,7 @@ const { title, description, date, tags = [] } = Astro.props as Props;
         {tags.length > 0 && (
           <span>
             {tags.map((tag) => (
-              <span class="pill" style="margin-left: 0;">{tag}</span>
+              <a class="pill pill-link" style="margin-left: 0;" href={`/tags/${tag.toLowerCase()}/`}>{tag}</a>
             ))}
           </span>
         )}

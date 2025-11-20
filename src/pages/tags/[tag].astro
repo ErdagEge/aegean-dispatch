@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  const tags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
+
+  return tags.map((tag) => ({
+    params: { tag: tag.toLowerCase() },
+    props: { tag }
+  }));
+}
+
+const { tag } = Astro.props;
+const posts = (await getCollection('posts'))
+  .filter((post) => post.data.tags.map((t) => t.toLowerCase()).includes(tag.toLowerCase()))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title={`${tag} posts - Aegean Dispatch`} description={`Posts tagged with ${tag} on Aegean Dispatch.`}>
+  <section class="page--narrow" style="margin: 0 auto;">
+    <div style="margin-bottom: 1.2rem;">
+      <h1 class="heading" style="font-size: clamp(1.8rem, 3vw, 2.2rem); margin-bottom: 0.2rem;">
+        {tag} posts
+      </h1>
+      <p class="subheading" style="margin: 0;">
+        Filtered view for <strong>{tag}</strong>. <a href="/posts">Back to all posts</a>
+      </p>
+    </div>
+
+    {posts.length === 0 ? (
+      <p class="text-muted">No posts yet for this tag.</p>
+    ) : (
+      <div class="post-list">
+        {posts.map((post) => (
+          <a class="card" href={`/posts/${post.slug}/`}>
+            <div class="post-meta">
+              <span>{post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+              {post.data.tags.map((t) => (
+                <a class="pill pill-link" href={`/tags/${t.toLowerCase()}/`}>{t}</a>
+              ))}
+            </div>
+            <h3 class="post-title">{post.data.title}</h3>
+            {post.data.description && <p class="text-muted" style="margin: 0.25rem 0 0;">{post.data.description}</p>}
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>

@@ -35,7 +35,7 @@ const posts = (await getCollection('posts'))
           <div class="post-meta" style="margin-bottom: 0.6rem;">
             <span>{post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
             {post.data.tags.slice(0, 2).map((tag) => (
-              <span class="pill">{tag}</span>
+              <a class="pill pill-link" href={`/tags/${tag.toLowerCase()}/`}>{tag}</a>
             ))}
           </div>
           <h3 class="post-title">{post.data.title}</h3>

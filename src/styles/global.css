@@ -97,6 +97,15 @@ main {
   font-weight: 600;
 }
 
+.pill-link {
+  text-decoration: none;
+}
+
+.pill-link:hover,
+.pill-link:focus-visible {
+  background: #cde7fa;
+}
+
 .pill + .pill {
   margin-left: 0.5rem;
 }
