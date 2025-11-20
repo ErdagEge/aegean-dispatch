@@ -5,15 +5,25 @@ const withBase = (href: string) =>
   href.startsWith('/') ? `${base}${href.replace(/^\//, '')}` : href;
 
 const navLinks = [
-  { href: withBase('/'), label: 'Home' },
-  { href: withBase('/about'), label: 'About' },
-  { href: withBase('/posts'), label: 'All Posts' }
-];
+  { path: '/', label: 'Home' },
+  { path: '/about', label: 'About' },
+  { path: '/posts', label: 'All Posts' }
+].map((link) => ({ ...link, href: withBase(link.path) }));
 
-const isActive = (href: string) => {
-  const target = href.replace(/\/$/, '');
-  const current = pathname.replace(/\/$/, '');
-  return current === target || current.startsWith(target);
+const relativePath = (() => {
+  const baseTrimmed = base.replace(/\/$/, '');
+  if (pathname.startsWith(baseTrimmed)) {
+    const suffix = pathname.slice(baseTrimmed.length) || '/';
+    return suffix.startsWith('/') ? suffix : `/${suffix}`;
+  }
+  return pathname || '/';
+})();
+
+const isActive = (path: string) => {
+  if (path === '/') return relativePath === '/';
+  const normalized = path.replace(/\/$/, '');
+  const current = relativePath.replace(/\/$/, '');
+  return current === normalized || current.startsWith(`${normalized}/`);
 };
 ---
 
