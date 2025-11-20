@@ -4,6 +4,8 @@ description: "A pared-down list of utilities that survive every laptop migration
 date: 2024-08-10
 tags:
   - tech
+cover: "/images/tech-cover.svg"
+coverAlt: "Minimal tech gradient"
 ---
 
 There is endless churn in the world of productivity apps. The tools that stay with me are the ones that vanish when I use them: a plain-text note system, a lightweight terminal multiplexer, and a calendar that does nothing except show me the time.

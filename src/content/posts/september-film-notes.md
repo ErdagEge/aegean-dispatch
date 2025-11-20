@@ -5,6 +5,8 @@ date: 2024-09-28
 tags:
   - cinema
   - books
+cover: "/images/cinema-cover.svg"
+coverAlt: "Neon-hued cinema gradient"
 ---
 
 I spent most of the month drifting between repertory theaters and new releases. A late-night revival of *In the Mood for Love* reminded me how color can hum like a soundtrack. Wong Kar-wai's restless camera still feels like the inside of a daydream.

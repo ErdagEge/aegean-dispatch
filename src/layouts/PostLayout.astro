@@ -1,14 +1,17 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { Image } from 'astro:assets';
 
 interface Props {
   title: string;
   description?: string;
   date: Date;
   tags: string[];
+  cover?: import('astro').ImageMetadata | string;
+  coverAlt?: string;
 }
 
-const { title, description, date, tags = [] } = Astro.props as Props;
+const { title, description, date, tags = [], cover, coverAlt } = Astro.props as Props;
 ---
 
 <BaseLayout title={`${title} - Aegean Dispatch`} description={description} pageClass="page--narrow">
@@ -18,6 +21,13 @@ const { title, description, date, tags = [] } = Astro.props as Props;
       <h1 class="heading" style="font-size: clamp(2rem, 3vw, 2.6rem); margin-top: 0.4rem;">
         {title}
       </h1>
+      {cover && (
+        typeof cover === 'string' ? (
+          <img class="post-cover" src={cover} alt={coverAlt ?? ''} loading="lazy" />
+        ) : (
+          <Image class="post-cover" src={cover} alt={coverAlt ?? ''} loading="lazy" />
+        )
+      )}
       <div class="post-meta">
         <span>{date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
         {tags.length > 0 && (

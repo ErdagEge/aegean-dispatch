@@ -96,6 +96,32 @@ main {
   color: var(--accent);
 }
 
+.card-thumb {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 0.35rem 0 0.75rem;
+  display: block;
+}
+
+.post-cover {
+  width: 100%;
+  max-height: 380px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin: 0.9rem 0 1rem;
+  display: block;
+}
+
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin: 1rem 0;
+  display: block;
+}
+
 .pill {
   display: inline-flex;
   align-items: center;

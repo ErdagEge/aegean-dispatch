@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Tech cover">
+  <defs>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f4c75"/>
+      <stop offset="100%" stop-color="#94d2ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#f7f5f2"/>
+  <rect x="90" y="180" width="1020" height="280" rx="26" fill="url(#g2)" opacity="0.95"/>
+  <rect x="220" y="240" width="760" height="120" rx="18" fill="#fdfaf6" opacity="0.9"/>
+  <rect x="320" y="210" width="60" height="210" rx="12" fill="#f4a261" opacity="0.85"/>
+</svg>
