@@ -3,6 +3,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 
+const base = (import.meta.env.BASE_URL ?? '/').replace(/\/?$/, '/');
+const withBase = (path: string) => (path?.startsWith('/') ? `${base}${path.slice(1)}` : path);
+
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
   const tags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
@@ -26,7 +29,7 @@ const posts = (await getCollection('posts'))
         {tag} posts
       </h1>
       <p class="subheading" style="margin: 0;">
-        Filtered view for <strong>{tag}</strong>. <a href="/posts">Back to all posts</a>
+        Filtered view for <strong>{tag}</strong>. <a href={withBase('/posts')}>Back to all posts</a>
       </p>
     </div>
 
@@ -39,18 +42,18 @@ const posts = (await getCollection('posts'))
             <div class="post-meta">
               <span>{post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
               {post.data.tags.map((t) => (
-                <a class="pill pill-link" href={`/tags/${t.toLowerCase()}/`}>{t}</a>
+                <a class="pill pill-link" href={withBase(`/tags/${t.toLowerCase()}/`)}>{t}</a>
               ))}
             </div>
             {post.data.cover && (
               typeof post.data.cover === 'string' ? (
-                <img class="card-thumb" src={post.data.cover} alt={post.data.coverAlt ?? ''} loading="lazy" />
+                <img class="card-thumb" src={withBase(post.data.cover)} alt={post.data.coverAlt ?? ''} loading="lazy" />
               ) : (
                 <Image class="card-thumb" src={post.data.cover} alt={post.data.coverAlt ?? ''} loading="lazy" />
               )
             )}
             <h3 class="post-title">
-              <a class="card-link" href={`/posts/${post.slug}/`}>{post.data.title}</a>
+              <a class="card-link" href={withBase(`/posts/${post.slug}/`)}>{post.data.title}</a>
             </h3>
             {post.data.description && <p class="text-muted" style="margin: 0.25rem 0 0;">{post.data.description}</p>}
           </article>

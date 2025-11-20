@@ -1,18 +1,25 @@
 ---
 const { pathname } = Astro.url;
+const base = (import.meta.env.BASE_URL ?? '/').replace(/\/?$/, '/');
+const withBase = (href: string) =>
+  href.startsWith('/') ? `${base}${href.replace(/^\//, '')}` : href;
+
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/posts', label: 'All Posts' }
+  { href: withBase('/'), label: 'Home' },
+  { href: withBase('/about'), label: 'About' },
+  { href: withBase('/posts'), label: 'All Posts' }
 ];
 
-const isActive = (href: string) =>
-  pathname === href || (href !== '/' && pathname.startsWith(href));
+const isActive = (href: string) => {
+  const target = href.replace(/\/$/, '');
+  const current = pathname.replace(/\/$/, '');
+  return current === target || current.startsWith(target);
+};
 ---
 
 <header>
   <nav class="nav">
-    <a class="nav-brand" href="/">Aegean Dispatch</a>
+    <a class="nav-brand" href={withBase('/')}>Aegean Dispatch</a>
     <div class="nav-links">
       {navLinks.map((link) => (
         <a
