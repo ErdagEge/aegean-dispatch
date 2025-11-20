@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Aegean Dispatch">
+  <defs>
+    <linearGradient id="sea" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f4c75"/>
+      <stop offset="100%" stop-color="#7fc8f8"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="#f7f5f2"/>
+  <path d="M10 34c8 0 8-8 16-8s8 8 16 8 8-8 16-8v18c0 2-2 4-4 4H14c-2 0-4-2-4-4V34z" fill="url(#sea)"/>
+  <circle cx="44" cy="20" r="6" fill="#f4a261"/>
+</svg>

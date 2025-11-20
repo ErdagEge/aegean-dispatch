@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+const uniqueTags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
+---
+
+<BaseLayout title="All Posts · Aegean Dispatch" description="Browse every letter from the Aegean Dispatch.">
+  <section class="page--narrow" style="margin: 0 auto;">
+    <div style="margin-bottom: 1.2rem;">
+      <h1 class="heading" style="font-size: clamp(1.8rem, 3vw, 2.2rem); margin-bottom: 0.3rem;">
+        All posts
+      </h1>
+      <p class="subheading" style="margin: 0;">
+        The full archive across cinema, tech, sports, and books.
+      </p>
+      {uniqueTags.length > 0 && (
+        <div style="margin-top: 0.7rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          {uniqueTags.map((tag) => (
+            <span class="pill">{tag}</span>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <div class="post-list">
+      {posts.map((post) => (
+        <a class="card" href={`/posts/${post.slug}/`}>
+          <div class="post-meta">
+            <span>{post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+            {post.data.tags.map((tag) => (
+              <span class="pill">{tag}</span>
+            ))}
+          </div>
+          <h3 class="post-title">{post.data.title}</h3>
+          {post.data.description && <p class="text-muted" style="margin: 0.25rem 0 0;">{post.data.description}</p>}
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

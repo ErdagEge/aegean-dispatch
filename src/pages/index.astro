@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 4);
+---
+
+<BaseLayout>
+  <section class="hero">
+    <p class="pill">Aegean Dispatch</p>
+    <h1>Quiet notes from the shoreline</h1>
+    <p>
+      Essays and dispatches on cinema, technology, books, and movement. A minimal, distraction-free
+      blog built with Astro.
+    </p>
+    <div class="hero-actions">
+      <a class="button" href="/posts">Browse all posts</a>
+      <a class="button secondary" href="/about">About the author</a>
+    </div>
+  </section>
+
+  <section>
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem;">
+      <div>
+        <h2 class="heading" style="margin: 0;">Recent posts</h2>
+        <p class="subheading" style="margin: 0;">Latest writing across the Aegean Dispatch.</p>
+      </div>
+      <a href="/posts" class="button secondary" style="padding: 0.55rem 0.85rem;">View all</a>
+    </div>
+    <div class="grid">
+      {posts.map((post) => (
+        <a class="card" href={`/posts/${post.slug}/`}>
+          <div class="post-meta" style="margin-bottom: 0.6rem;">
+            <span>{post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+            {post.data.tags.slice(0, 2).map((tag) => (
+              <span class="pill">{tag}</span>
+            ))}
+          </div>
+          <h3 class="post-title">{post.data.title}</h3>
+          {post.data.description && <p class="text-muted" style="margin: 0;">{post.data.description}</p>}
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

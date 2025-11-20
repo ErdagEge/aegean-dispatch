@@ -1,0 +1,27 @@
+---
+const { pathname } = Astro.url;
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/posts', label: 'All Posts' }
+];
+
+const isActive = (href: string) =>
+  pathname === href || (href !== '/' && pathname.startsWith(href));
+---
+
+<header>
+  <nav class="nav">
+    <a class="nav-brand" href="/">Aegean Dispatch</a>
+    <div class="nav-links">
+      {navLinks.map((link) => (
+        <a
+          class={`${isActive(link.href) ? 'nav-link is-active' : 'nav-link'}`}
+          href={link.href}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </nav>
+</header>

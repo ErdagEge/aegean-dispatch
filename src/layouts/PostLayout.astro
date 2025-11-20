@@ -1,0 +1,37 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  date: Date;
+  tags: string[];
+}
+
+const { title, description, date, tags = [] } = Astro.props as Props;
+---
+
+<BaseLayout title={`${title} · Aegean Dispatch`} description={description} pageClass="page--narrow">
+  <article>
+    <header style="margin-bottom: 1.4rem;">
+      <p class="pill">Post</p>
+      <h1 class="heading" style="font-size: clamp(2rem, 3vw, 2.6rem); margin-top: 0.4rem;">
+        {title}
+      </h1>
+      <div class="post-meta">
+        <span>{date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+        {tags.length > 0 && (
+          <span>
+            {tags.map((tag) => (
+              <span class="pill" style="margin-left: 0;">{tag}</span>
+            ))}
+          </span>
+        )}
+      </div>
+      {description && <p class="subheading" style="margin-top: 0.75rem;">{description}</p>}
+    </header>
+    <div class="post-content">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

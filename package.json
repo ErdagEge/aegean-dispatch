@@ -1,0 +1,27 @@
+{
+  "name": "aegean-dispatch",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "astro": "astro"
+  },
+  "keywords": [
+    "astro",
+    "blog",
+    "personal-site"
+  ],
+  "author": "",
+  "license": "MIT",
+  "description": "Aegean Dispatch - a personal blog built with Astro.",
+  "devDependencies": {
+    "@astrojs/check": "^0.9.5",
+    "@types/node": "^24.10.1",
+    "astro": "^5.15.9",
+    "typescript": "^5.9.3"
+  }
+}
