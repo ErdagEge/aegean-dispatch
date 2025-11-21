@@ -122,6 +122,17 @@ main {
   display: block;
 }
 
+.post-content figure {
+  margin: 1.25rem 0;
+}
+
+.post-content figcaption {
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  text-align: left;
+}
+
 .pill {
   display: inline-flex;
   align-items: center;
