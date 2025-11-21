@@ -127,10 +127,10 @@ main {
 }
 
 .post-content figcaption {
-  margin-top: 0.25rem;
+  margin-top: 0.20rem;
   color: var(--muted);
   font-size: 0.92rem;
-  text-align: right;
+  text-align: center;
 }
 
 .pill {
