@@ -1,10 +1,10 @@
 ---
 title: "How I built Aegean Dispatch with Astro"
 description: "Notes on the stack, structure, styling, and deployment choices behind this blog."
-date: 2025-01-05
+date: 2025-11-21
 tags:
   - tech
-cover: "/images/aegean-dispatch-initial-logo.png"
+cover: "/images/aegean-dispatch-initial-logo.jpg"
 coverAlt: "Minimal tech gradient"
 ---
 
