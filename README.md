@@ -1,43 +1,51 @@
 # Aegean Dispatch
 
-Aegean Dispatch is a minimal personal blog built with [Astro](https://astro.build). It highlights essays about cinema, technology, sport, and books while staying fast, responsive, and easy to deploy as a static site (e.g., GitHub Pages).
+**Aegean Dispatch** is my personal corner of the internet. A small, quiet blog where I write about:
 
-## Features
+- cinema and the films that stick with me  
+- technology and the tools I actually use  
+- sport (mostly NBA)  
+- books worth thinking about  
 
-- **Content collections** powered by Astro Content Collections with Markdown frontmatter (`title`, `date`, `tags`, `description`).
-- **Pretty URLs** for each post (`/posts/<slug>/`) plus curated landing pages (Home, About, All Posts).
-- **Reusable layouts & components** for navigation, hero, and post presentation.
-- **Responsive, dark-on-light theme** with custom typography and tag pills.
-- **Static output** for painless hosting anywhere, including GitHub Pages.
+The goal is posting short dispatches from whatever I’m currently watching, reading, or building.
 
-## Project Structure
+Live site: <https://erdagege.github.io/aegean-dispatch/>
 
-```
-├── public/                # Static assets (e.g., favicon)
-├── src/
-│   ├── components/        # Header/Footer components
-│   ├── content/           # Astro content collections + Markdown posts
-│   ├── layouts/           # Base layout + Post layout
-│   ├── pages/             # Home, About, All Posts, dynamic post route
-│   └── styles/            # Global styling
-├── astro.config.mjs       # Astro configuration
-├── package.json           # Scripts & dependencies
-└── tsconfig.json          # TypeScript settings
-```
+---
 
-## Getting Started
+## What this repo is
+
+This repository contains the source code for the blog.  
+It’s built with [Astro](https://astro.build/) and deployed as a static site.
+
+- Markdown files for each post  
+- Simple layouts for Home, About, and All Posts  
+- Responsive design aimed at staying fast and readable  
+
+---
+
+## Running it locally
+
+Clone the repo and install dependencies:
 
 ```bash
-npm install        # install dependencies
-npm run dev        # start local dev server (default: http://localhost:4321)
-npm run check      # type & content validation
-npm run build      # generate static `dist/`
-npm run preview    # preview built site locally
+npm install
+npm run dev     # starts dev server at http://localhost:4321
 ```
 
-Add new posts in `src/content/posts/` using Markdown with frontmatter:
+Build and preview:
 
-```md
+```bash
+Copy code
+npm run build
+npm run preview
+```
+
+### Creating a new post
+
+New posts live in src/content/posts/ as Markdown files with frontmatter:
+
+```bash
 ---
 title: "Post title"
 description: "Short summary"
@@ -48,17 +56,27 @@ tags:
 Post body here…
 ```
 
+## Project structure
+
+```bash
+public/                 # Static assets (favicons, images)
+src/
+  components/           # Header, footer, cards, etc.
+  content/              # Content collections and Markdown posts
+  layouts/              # Base and post layouts
+  pages/                # Home, About, All Posts, dynamic post routes
+  styles/               # Global styles
+astro.config.mjs        # Astro configuration
+package.json            # Scripts & dependencies
+tsconfig.json           # TypeScript settings
+```
+
 ## Deployment
+The site is deployed via GitHub Pages as a static build.
 
-1. Update `site` (and optionally `base`) inside `astro.config.mjs` to match the production URL.
-2. Run `npm run build` to produce the static `dist/` directory.
-3. Deploy `dist/` to any static host. For GitHub Pages, push the contents of `dist/` to `gh-pages` or use GitHub Actions with `with: path: dist`.
+Any push to the main branch triggers a GitHub Action that:
 
-## Customization Tips
+1. Builds the Astro site.
+2. Publishes the dist/ folder to GitHub Pages.
 
-- Adjust theme values inside `src/styles/global.css`.
-- Add or rename tags by updating `src/content/config.ts` (remember to update frontmatter accordingly).
-- Modify navigation links in `src/components/Header.astro` if you add new sections.
-- Replace sample posts with your own Markdown files for a personalized feed.
-
-Enjoy the calm dispatches!
+Enjoy the calm dispatches.
