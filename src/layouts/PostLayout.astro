@@ -10,11 +10,12 @@ interface Props {
   description?: string;
   date: Date;
   tags: string[];
+  readingTime: number;
   cover?: import('astro').ImageMetadata | string;
   coverAlt?: string;
 }
 
-const { title, description, date, tags = [], cover, coverAlt } = Astro.props as Props;
+const { title, description, date, tags = [], cover, coverAlt, readingTime } = Astro.props as Props;
 ---
 
 <BaseLayout title={`${title} - Aegean Dispatch`} description={description} pageClass="page--narrow">
@@ -33,6 +34,8 @@ const { title, description, date, tags = [], cover, coverAlt } = Astro.props as 
       )}
       <div class="post-meta">
         <span>{date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+        <span aria-hidden="true">•</span>
+        <span>{readingTime} min read</span>
         {tags.length > 0 && (
           <span>
             {tags.map((tag) => (
