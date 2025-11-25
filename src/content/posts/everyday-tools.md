@@ -8,6 +8,6 @@ cover: "/images/tech-cover.svg"
 coverAlt: "Minimal tech gradient"
 ---
 
-There is endless churn in the world of productivity apps. The tools that stay with me are the ones that vanish when I use them: a plain-text note system, a lightweight terminal multiplexer, and a calendar that does nothing except show me the time.
+Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. 
 
-These days my stack is a trio: a folder of Markdown notes, a terminal window, and a browser. The rest is noise. I keep telling myself that software should be more like good stationery—quiet, unassuming, and easy to hand to someone else.
+Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. 
