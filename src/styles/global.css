@@ -191,6 +191,12 @@ main {
   display: none !important;
 }
 
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
 .pill {
   display: inline-flex;
   align-items: center;
