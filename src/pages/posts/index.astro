@@ -23,17 +23,38 @@ const uniqueTags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
         The full archive across cinema, tech, sports, and books.
       </p>
       {uniqueTags.length > 0 && (
-        <div style="margin-top: 0.7rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
-          {uniqueTags.map((tag) => (
-            <a class="pill pill-link" href={withBase(`/tags/${tag.toLowerCase()}/`)}>{tag}</a>
-          ))}
+        <div class="filter-bar">
+          <label class="filter-label" for="post-search">Quick filter</label>
+          <input
+            id="post-search"
+            class="filter-input"
+            type="search"
+            name="q"
+            placeholder="Search title or summary"
+            autocomplete="off"
+            aria-label="Search posts"
+          />
+          <div class="filter-tags">
+            {uniqueTags.map((tag) => (
+              <button class="pill filter-tag" type="button" data-tag={tag.toLowerCase()} aria-pressed="false">
+                {tag}
+              </button>
+            ))}
+            <button class="pill filter-tag reset" type="button" id="clear-filters">Clear</button>
+          </div>
         </div>
       )}
     </div>
 
-    <div class="post-list">
+    <div id="post-results" class="post-list">
       {posts.map((post) => (
-        <article class="card">
+        <article
+          class="card"
+          data-post-card
+          data-title={post.data.title.toLowerCase()}
+          data-desc={(post.data.description ?? '').toLowerCase()}
+          data-tags={post.data.tags.map((t) => t.toLowerCase()).join(',')}
+        >
           <div class="post-meta">
             <span>{post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
             <span aria-hidden="true">•</span>
@@ -58,5 +79,63 @@ const uniqueTags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
         </article>
       ))}
     </div>
+    <p id="no-results" class="text-muted" style="display: none; margin-top: 0.75rem;">No posts found. Try a different search or clear filters.</p>
   </section>
+
+  <script is:inline>
+    const searchInput = document.querySelector('#post-search');
+    const tagButtons = Array.from(document.querySelectorAll('.filter-tag[data-tag]'));
+    const clearBtn = document.querySelector('#clear-filters');
+    const cards = Array.from(document.querySelectorAll('[data-post-card]'));
+    const emptyState = document.querySelector('#no-results');
+
+    const applyFilters = () => {
+      const query = (searchInput?.value || '').trim().toLowerCase();
+      const activeTags = tagButtons
+        .filter((btn) => btn.getAttribute('aria-pressed') === 'true')
+        .map((btn) => btn.dataset.tag || '');
+
+      let visibleCount = 0;
+      cards.forEach((card) => {
+        const title = card.dataset.title || '';
+        const desc = card.dataset.desc || '';
+        const tags = (card.dataset.tags || '').split(',').filter(Boolean);
+
+        const matchesQuery = !query || title.includes(query) || desc.includes(query);
+        const matchesTags = activeTags.length === 0 || activeTags.every((tag) => tags.includes(tag));
+
+        const show = matchesQuery && matchesTags;
+        card.classList.toggle('is-hidden', !show);
+        if (show) visibleCount += 1;
+      });
+
+      if (emptyState) {
+        emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
+    };
+
+    tagButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const current = btn.getAttribute('aria-pressed') === 'true';
+        btn.setAttribute('aria-pressed', String(!current));
+        btn.classList.toggle('filter-tag--active', !current);
+        applyFilters();
+      });
+    });
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        if (searchInput) searchInput.value = '';
+        tagButtons.forEach((btn) => {
+          btn.setAttribute('aria-pressed', 'false');
+          btn.classList.remove('filter-tag--active');
+        });
+        applyFilters();
+      });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', applyFilters);
+    }
+  </script>
 </BaseLayout>
