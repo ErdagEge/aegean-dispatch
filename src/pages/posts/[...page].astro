@@ -3,17 +3,39 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import { readingTime } from '../../utils/readingTime';
+import type { Page } from 'astro';
+
+export async function getStaticPaths({ paginate }: { paginate: Function }) {
+  const allPosts = await getCollection('posts');
+  const sortedPosts = allPosts
+    .map((post) => ({ ...post, readingTime: readingTime(post.body) }))
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+  return paginate(sortedPosts, { pageSize: 6 });
+}
+
+interface Props {
+  page: Page<any>;
+}
+
+const { page } = Astro.props;
+const posts = page.data;
 
 const base = (import.meta.env.BASE_URL ?? '/').replace(/\/?$/, '/');
 const withBase = (path: string) => (path?.startsWith('/') ? `${base}${path.slice(1)}` : path);
-
-const posts = (await getCollection('posts'))
-  .map((post) => ({ ...post, readingTime: readingTime(post.body) }))
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+// We need to calculate unique tags for the *current page* or *all posts*?
+// Usually filters are "client side" so they only work on the visible page.
+// We can fetch all posts just for the tags list if we want the filter buttons to show all possibilities,
+// but filtering will still only affect the current page's DOM.
+// Let's stick to tags from the current page to be consistent with what's filtered,
+// OR fetch all tags so the user sees what's available globally (but clicking one might show 0 results on this page).
+// Standard practice with client-side filtering on paginated pages is tricky.
+// Let's use tags from the current page to avoid confusion, or perhaps all tags if we want to show global context.
+// Actually, let's keep it simple: filter the current view.
 const uniqueTags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
 ---
 
-<BaseLayout title="All Posts - Aegean Dispatch" description="Browse every letter from the Aegean Dispatch.">
+<BaseLayout title={`All Posts (Page ${page.currentPage}) - Aegean Dispatch`} description="Browse every letter from the Aegean Dispatch.">
   <section class="page--narrow" style="margin: 0 auto;">
     <div style="margin-bottom: 1.2rem;">
       <h1 class="heading" style="font-size: clamp(1.8rem, 3vw, 2.2rem); margin-bottom: 0.3rem;">
@@ -24,7 +46,7 @@ const uniqueTags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
       </p>
       {uniqueTags.length > 0 && (
         <div class="filter-bar">
-          <label class="filter-label" for="post-search">Quick filter</label>
+          <label class="filter-label" for="post-search">Quick filter (current page)</label>
           <input
             id="post-search"
             class="filter-input"
@@ -79,7 +101,20 @@ const uniqueTags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
         </article>
       ))}
     </div>
-    <p id="no-results" class="text-muted" style="display: none; margin-top: 0.75rem;">No posts found. Try a different search or clear filters.</p>
+    <p id="no-results" class="text-muted" style="display: none; margin-top: 0.75rem;">No posts found on this page. Try a different search or clear filters.</p>
+
+    <div class="pagination" style="margin-top: 2rem; display: flex; justify-content: space-between; align-items: center;">
+        {page.url.prev ? (
+            <a href={withBase(page.url.prev)} class="pill">← Previous</a>
+        ) : <span />}
+
+        <span class="text-muted">Page {page.currentPage} of {page.lastPage}</span>
+
+        {page.url.next ? (
+            <a href={withBase(page.url.next)} class="pill">Next →</a>
+        ) : <span />}
+    </div>
+
   </section>
 
   <script is:inline>
