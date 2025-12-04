@@ -23,5 +23,9 @@
     "@types/node": "^24.10.1",
     "astro": "^5.15.9",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.14",
+    "@astrojs/sitemap": "^3.6.0"
   }
 }
