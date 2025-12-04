@@ -3,8 +3,6 @@ title: "The House Always Wins: What I've Learned During My Podcast Prep"
 description: "Online gambling isn't just 'a little bit of fun' anymore. This post looks at how modern gambling tech manipulates our brains, targers young people and builds a business model that depends on harm."
 date: 2025-12-04
 tags:
-  - podcast
-  - culture
   - sports
 cover: "/images/casino-in-a-pocket.png"
 coverAlt: "The casino in your pocket."
