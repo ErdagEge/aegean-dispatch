@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
 import { readingTime } from '../../utils/readingTime';
 import type { Page } from 'astro';
+import postFiltersUrl from '../../scripts/postFilters.ts?url';
 
 export async function getStaticPaths({ paginate }: { paginate: Function }) {
   const allPosts = await getCollection('posts');
@@ -87,11 +87,7 @@ const uniqueTags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
           </div>
 
           {post.data.cover && (
-            typeof post.data.cover === 'string' ? (
-              <img class="card-thumb" src={withBase(post.data.cover)} alt={post.data.coverAlt ?? ''} loading="lazy" />
-            ) : (
-              <Image class="card-thumb" src={post.data.cover} alt={post.data.coverAlt ?? ''} loading="lazy" />
-            )
+            <img class="card-thumb" src={withBase(post.data.cover)} alt={post.data.coverAlt ?? ''} loading="lazy" />
           )}
 
           <h3 class="post-title">
@@ -117,60 +113,5 @@ const uniqueTags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
 
   </section>
 
-  <script is:inline>
-    const searchInput = document.querySelector('#post-search');
-    const tagButtons = Array.from(document.querySelectorAll('.filter-tag[data-tag]'));
-    const clearBtn = document.querySelector('#clear-filters');
-    const cards = Array.from(document.querySelectorAll('[data-post-card]'));
-    const emptyState = document.querySelector('#no-results');
-
-    const applyFilters = () => {
-      const query = (searchInput?.value || '').trim().toLowerCase();
-      const activeTags = tagButtons
-        .filter((btn) => btn.getAttribute('aria-pressed') === 'true')
-        .map((btn) => btn.dataset.tag || '');
-
-      let visibleCount = 0;
-      cards.forEach((card) => {
-        const title = card.dataset.title || '';
-        const desc = card.dataset.desc || '';
-        const tags = (card.dataset.tags || '').split(',').filter(Boolean);
-
-        const matchesQuery = !query || title.includes(query) || desc.includes(query);
-        const matchesTags = activeTags.length === 0 || activeTags.every((tag) => tags.includes(tag));
-
-        const show = matchesQuery && matchesTags;
-        card.classList.toggle('is-hidden', !show);
-        if (show) visibleCount += 1;
-      });
-
-      if (emptyState) {
-        emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
-      }
-    };
-
-    tagButtons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const current = btn.getAttribute('aria-pressed') === 'true';
-        btn.setAttribute('aria-pressed', String(!current));
-        btn.classList.toggle('filter-tag--active', !current);
-        applyFilters();
-      });
-    });
-
-    if (clearBtn) {
-      clearBtn.addEventListener('click', () => {
-        if (searchInput) searchInput.value = '';
-        tagButtons.forEach((btn) => {
-          btn.setAttribute('aria-pressed', 'false');
-          btn.classList.remove('filter-tag--active');
-        });
-        applyFilters();
-      });
-    }
-
-    if (searchInput) {
-      searchInput.addEventListener('input', applyFilters);
-    }
-  </script>
+  <script type="module" src={postFiltersUrl}></script>
 </BaseLayout>

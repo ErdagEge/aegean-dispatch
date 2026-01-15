@@ -2,7 +2,10 @@ import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 
 export async function GET(context) {
-  const posts = await getCollection('posts');
+  const base = (import.meta.env.BASE_URL ?? '/').replace(/\/?$/, '/');
+  const posts = (await getCollection('posts')).sort(
+    (a, b) => b.data.date.getTime() - a.data.date.getTime()
+  );
   return rss({
     title: 'Aegean Dispatch',
     description: 'Notes on cinema, tech, sports, and books from the Aegean coast.',
@@ -11,7 +14,7 @@ export async function GET(context) {
       title: post.data.title,
       pubDate: post.data.date,
       description: post.data.description,
-      link: `/aegean-dispatch/posts/${post.slug}/`,
+      link: `${base}posts/${post.slug}/`,
     })),
     customData: `<language>en-us</language>`,
   });

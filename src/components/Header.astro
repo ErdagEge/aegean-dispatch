@@ -33,7 +33,7 @@ const isActive = (path: string) => {
     <div class="nav-links">
       {navLinks.map((link) => (
         <a
-          class={`${isActive(link.href) ? 'nav-link is-active' : 'nav-link'}`}
+          class={`${isActive(link.path) ? 'nav-link is-active' : 'nav-link'}`}
           href={link.href}
         >
           {link.label}
