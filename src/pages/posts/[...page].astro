@@ -23,6 +23,7 @@ const posts = page.data;
 
 const base = (import.meta.env.BASE_URL ?? '/').replace(/\/?$/, '/');
 const withBase = (path: string) => (path?.startsWith('/') ? `${base}${path.slice(1)}` : path);
+const scriptSrc = postFiltersUrl.startsWith(base) ? postFiltersUrl : withBase(postFiltersUrl);
 // We need to calculate unique tags for the *current page* or *all posts*?
 // Usually filters are "client side" so they only work on the visible page.
 // We can fetch all posts just for the tags list if we want the filter buttons to show all possibilities,
@@ -113,5 +114,5 @@ const uniqueTags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
 
   </section>
 
-  <script type="module" src={postFiltersUrl}></script>
+  <script type="module" src={scriptSrc}></script>
 </BaseLayout>
