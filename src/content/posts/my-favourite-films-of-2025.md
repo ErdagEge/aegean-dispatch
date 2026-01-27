@@ -4,7 +4,7 @@ description: "A curated list of some of my favourite films released in 2025."
 date: 2026-01-27
 tags:
   - cinema
-cover: "/public/images/Cinema-Empire.jpg"
+cover: "/images/Cinema-Empire.jpg"
 coverAlt: "2025 in films"
 ---
 
