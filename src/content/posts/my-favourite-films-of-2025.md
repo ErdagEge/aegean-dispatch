@@ -13,7 +13,7 @@ coverAlt: "2025 in films"
 ---
 
 <figure>
-  <img src="../images/wake-up-dead-man.jpg" loading="lazy" />
+  <img src="../../images/wake-up-dead-man.jpg" loading="lazy" />
 </figure>
 
 # Wake Up Dead Man
@@ -33,7 +33,7 @@ I hope they make ten of these movies.
 ---
 
 <figure>
-  <img src="../images/bugonia-emma-stone.jpg" loading="lazy" />
+  <img src="../../images/bugonia-emma-stone.jpg" loading="lazy" />
 </figure>
 
 # Bugonia
@@ -51,7 +51,7 @@ All that and it’s Yorgos’ funniest movie.
 ---
 
 <figure>
-  <img src="../images/predator-badlands.jpg" loading="lazy" />
+  <img src="../../images/predator-badlands.jpg" loading="lazy" />
 </figure>
 
 # Predator: Badlands
@@ -69,7 +69,7 @@ The final fight in the film essentially breaks the Predator lore. Suggesting tha
 ---
 
 <figure>
-  <img src="../images/weapons-movie.jpg" loading="lazy" />
+  <img src="../../images/weapons-movie.jpg" loading="lazy" />
 </figure>
 
 # Weapons
@@ -89,7 +89,7 @@ Overall this was an undeniable piece of cinema.
 ---
 
 <figure>
-  <img src="../images/Sinners_2025_207.jpg" loading="lazy" />
+  <img src="../../images/Sinners_2025_207.jpg" loading="lazy" />
 </figure>
 
 # Sinners
@@ -109,7 +109,7 @@ Can’t wait to see what he comes up with next.
 ---
 
 <figure>
-  <img src="../images/neytiri-avatar-avatar-the-way-of-water-2022-movies-5k-8k-7680x4454-8719.jpg" loading="lazy" />
+  <img src="../../images/neytiri-avatar-avatar-the-way-of-water-2022-movies-5k-8k-7680x4454-8719.jpg" loading="lazy" />
 </figure>
 
 # Avatar: Fire & Ash
